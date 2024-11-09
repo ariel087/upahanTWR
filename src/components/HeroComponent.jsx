@@ -171,13 +171,16 @@ const HeroComponent = () => {
           >
             {/* Carousel Component with independent state */}
             <CarouselItem slides={slides} />
-            <div className="heart absolute right-2 top-2" onClick={() => toggleLike(index)}>
+            <div
+              className="heart absolute right-2 top-2"
+              onClick={() => toggleLike(index)}
+            >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 fill={likedItems[index] ? "red" : "none"} // Change fill color based on like status
                 viewBox="0 0 24 24"
                 strokeWidth="1.5"
-                stroke={likedItems[index] ? "red" : "currentColor"} 
+                stroke={likedItems[index] ? "red" : "currentColor"}
                 className="w-7 h-7 cursor-pointer"
               >
                 <path
@@ -186,10 +189,9 @@ const HeroComponent = () => {
                   d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 2.349 1.587 4.297 3.943 6.38L12 21.75l5.057-7.12C19.413 12.547 21 10.6 21 8.25z"
                 />
               </svg>
-            
             </div>
-                        {/* Body container */}
-                        <div className="w-full h-10 flex justify-between p-2 whitespace-nowrap">
+            {/* Body container */}
+            <div className="w-full h-10 flex justify-between p-2 whitespace-nowrap">
               <p className="text-xl">Pulilan, Bulacan</p>
               <div className="flex items-center h-5 w-22">
                 {[...Array(5)].map((_, i) => (
@@ -216,8 +218,8 @@ const HeroComponent = () => {
             </p>
           </div>
         ))}
-        <LoginModalComponent/>
-        <SignupModalComponent/>
+        <LoginModalComponent />
+        <SignupModalComponent />
       </div>
     </>
   );

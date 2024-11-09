@@ -1,13 +1,13 @@
-import HeroComponent from "./components/HeroComponent";
-import NavBarComponent from "./components/NavBarComponent";
+import { BrowserRouter as Router } from "react-router-dom";
+import AppRoutes from "./Routes";
+
 
 function App() {
   return (
     <>
-      <body className="w-full h-screen bg-primary">
-      <NavBarComponent/>
-      <HeroComponent/>
-      </body>
+      <Router>
+        <AppRoutes />
+      </Router>
     </>
   );
 }
