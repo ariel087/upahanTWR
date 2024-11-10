@@ -2,6 +2,7 @@ import { useState, useEffect, useRef } from "react";
 import CategoriesComponent from "./CategoriesComponent";
 import LoginModalComponent from "./modals/LoginModalComponent";
 import SignupModalComponent from "./modals/SignupModalComponent";
+import { Link } from "react-router-dom";
 // Carousel item component
 const CarouselItem = ({ slides }) => {
   const [currentSlide, setCurrentSlide] = useState(0);
@@ -54,7 +55,7 @@ const CarouselItem = ({ slides }) => {
     <div ref={carouselRef} className="carousel relative w-full overflow-hidden">
       <button
         onClick={prevSlide}
-        className="absolute hidden lg:block left-2 bottom-10 px-2 py-1 bg-gray-200 rounded-md hover:bg-gray-300 z-10"
+        className="carousel-controls absolute hidden lg:block left-2 bottom-10 px-2 py-1 bg-gray-200 rounded-md hover:bg-gray-300 z-10"
       >
         ❮
       </button>
@@ -74,7 +75,7 @@ const CarouselItem = ({ slides }) => {
       </div>
       <button
         onClick={nextSlide}
-        className="absolute hidden lg:block right-2 bottom-10 px-2 py-1 bg-gray-200 rounded-md hover:bg-gray-300 z-10"
+        className="carousel-controls absolute hidden lg:block right-2 bottom-10 px-2 py-1 bg-gray-200 rounded-md hover:bg-gray-300 z-10"
       >
         ❯
       </button>
@@ -118,6 +119,7 @@ const HeroComponent = () => {
 
   return (
     <>
+
       {/* Search form */}
       <form className="max-w-md mt-10 mx-auto sm:w-full md:w-10/12 lg:w-8/12">
         <label
@@ -164,64 +166,77 @@ const HeroComponent = () => {
 
       {/* Grid list */}
       <div className="grid grid-cols-1 sm:grid-cols-2 shadow-sm lg:grid-cols-4 2xl:grid-cols-5 gap-5 w-full h-[65vh] p-4 items-center overflow-auto">
-        {Array.from({ length: 13 }).map((_, index) => (
-          <div
-            key={index}
-            className="bg-white mt-10 w-full rounded-lg min-h-80 flex flex-col items-center relative"
-          >
-            {/* Carousel Component with independent state */}
-            <CarouselItem slides={slides} />
-            <div
-              className="heart absolute right-2 top-2"
-              onClick={() => toggleLike(index)}
-            >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                fill={likedItems[index] ? "red" : "none"} // Change fill color based on like status
-                viewBox="0 0 24 24"
-                strokeWidth="1.5"
-                stroke={likedItems[index] ? "red" : "currentColor"}
-                className="w-7 h-7 cursor-pointer"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 2.349 1.587 4.297 3.943 6.38L12 21.75l5.057-7.12C19.413 12.547 21 10.6 21 8.25z"
-                />
-              </svg>
-            </div>
-            {/* Body container */}
-            <div className="w-full h-10 flex justify-between p-2 whitespace-nowrap">
-              <p className="text-xl">Pulilan, Bulacan</p>
-              <div className="flex items-center h-5 w-22">
-                {[...Array(5)].map((_, i) => (
-                  <svg
-                    key={i}
-                    className="w-4 h-4 text-yellow-300 ml-1"
-                    aria-hidden="true"
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="currentColor"
-                    viewBox="0 0 22 20"
-                  >
-                    <path d="M20.924 7.625a1.523 1.523 0 0 0-1.238-1.044l-5.051-.734-2.259-4.577a1.534 1.534 0 0 0-2.752 0L7.365 5.847l-5.051.734A1.535 1.535 0 0 0 1.463 9.2l3.656 3.563-.863 5.031a1.532 1.532 0 0 0 2.226 1.616L11 17.033l4.518 2.375a1.534 1.534 0 0 0 2.226-1.617l-.863-5.03L20.537 9.2a1.523 1.523 0 0 0 .387-1.575Z" />
-                  </svg>
-                ))}
-              </div>
-            </div>
-            <p className="text-base italic text-start w-full px-2 text-gray-500">
-              {" "}
-              Apartment{" "}
-            </p>{" "}
-            <p className="text-base font-bold text-start w-full my-2 px-2">
-              {" "}
-              ₱ 3,000{" "}
-            </p>
-          </div>
-        ))}
-        <LoginModalComponent />
-        <SignupModalComponent />
+  {Array.from({ length: 13 }).map((_, index) => (
+    <div
+      key={index}
+      className="bg-white mt-10 w-full rounded-lg min-h-80 flex flex-col items-center relative cursor-pointer hover:shadow-lg transition-shadow"
+      onClick={(e) => {
+        // Check if click is from heart or carousel
+        const isHeartClick = e.target.closest('.heart');
+        const isCarouselClick = e.target.closest('.carousel-controls');
+        
+        // Only open new tab if not clicking heart or carousel
+        if (!isHeartClick && !isCarouselClick) {
+          window.open(`/property/${index}`, '_blank'); // Replace with your actual property URL
+        }
+      }}
+    >
+      {/* Wrap Carousel in a div with carousel-controls class */}
+      <div>
+        <CarouselItem slides={slides} />
       </div>
-    </>
+
+      <div
+        className="heart absolute right-2 top-2"
+        onClick={(e) => {
+          e.stopPropagation(); // Prevent container click
+          toggleLike(index);
+        }}
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          fill={likedItems[index] ? "red" : "none"}
+          viewBox="0 0 24 24"
+          strokeWidth="1.5"
+          stroke={likedItems[index] ? "red" : "currentColor"}
+          className="w-7 h-7 cursor-pointer"
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 2.349 1.587 4.297 3.943 6.38L12 21.75l5.057-7.12C19.413 12.547 21 10.6 21 8.25z"
+          />
+        </svg>
+      </div>
+
+      <div className="w-full h-10 flex justify-between p-2 whitespace-nowrap">
+        <p className="text-xl">Pulilan, Bulacan</p>
+        <div className="flex items-center h-5 w-22">
+          {[...Array(5)].map((_, i) => (
+            <svg
+              key={i}
+              className="w-4 h-4 text-yellow-300 ml-1"
+              aria-hidden="true"
+              xmlns="http://www.w3.org/2000/svg"
+              fill="currentColor"
+              viewBox="0 0 22 20"
+            >
+              <path d="M20.924 7.625a1.523 1.523 0 0 0-1.238-1.044l-5.051-.734-2.259-4.577a1.534 1.534 0 0 0-2.752 0L7.365 5.847l-5.051.734A1.535 1.535 0 0 0 1.463 9.2l3.656 3.563-.863 5.031a1.532 1.532 0 0 0 2.226 1.616L11 17.033l4.518 2.375a1.534 1.534 0 0 0 2.226-1.617l-.863-5.03L20.537 9.2a1.523 1.523 0 0 0 .387-1.575Z" />
+            </svg>
+          ))}
+        </div>
+      </div>
+      <p className="text-base italic text-start w-full px-2 text-gray-500">
+        Apartment
+      </p>
+      <p className="text-base font-bold text-start w-full my-2 px-2">
+        ₱ 3,000
+      </p>
+    </div>
+  ))}
+  <LoginModalComponent />
+  <SignupModalComponent />
+</div>    </>
   );
 };
 
