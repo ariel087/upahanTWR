@@ -177,7 +177,7 @@ const HeroComponent = () => {
         
         // Only open new tab if not clicking heart or carousel
         if (!isHeartClick && !isCarouselClick) {
-          window.open(`/property/${index}`, '_blank'); // Replace with your actual property URL
+          window.open(`/property?id=${index}`, '_blank'); // Replace with your actual property URL
         }
       }}
     >
