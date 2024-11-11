@@ -2,7 +2,7 @@ import { useState, useEffect, useRef } from "react";
 import CategoriesComponent from "./CategoriesComponent";
 import LoginModalComponent from "./modals/LoginModalComponent";
 import SignupModalComponent from "./modals/SignupModalComponent";
-import { Link } from "react-router-dom";
+
 // Carousel item component
 const CarouselItem = ({ slides }) => {
   const [currentSlide, setCurrentSlide] = useState(0);

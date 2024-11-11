@@ -27,7 +27,7 @@ const Carousel = () => {
     <div>
     
       <div className="flex gap-4 w-full flex-col max-w-4xl mx-auto ">
-        <span className="text-2xl font-semibold mt-5">PROPERTY NAME</span>
+        <span className="text-3xl font-semibold mt-5">PROPERTY NAME</span>
       {/* Main Image on the Left */}
       <div className="flex-1">
         <img

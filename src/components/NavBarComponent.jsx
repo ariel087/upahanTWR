@@ -1,7 +1,7 @@
 import { useState } from "react";
 import LoginModalComponent from "./modals/LoginModalComponent";
 import SignupModalComponent from "./modals/SignupModalComponent";
-
+import { Link } from "react-router-dom";
 const NavBarComponent = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false); // State for menu visibility
   const [isLoginModalOpen, setIsLoginModalOpen] = useState(false); // State for login modal visibility
@@ -15,11 +15,13 @@ const NavBarComponent = () => {
       <nav className="w-full flex justify-between items-center py-8 px-3 md:py-10 md:px-10 h-20 bg-white shadow-sm border-b border-gray-200">
         {/* Logo Section */}
         <div className="flex items-center">
+        <Link to={"../"}>
           <img
             src="../src/assets/logo/upahan.png"
             className="w-32 h-10"
             alt="Upahan Logo"
-          />
+            />
+            </Link>
         </div>
 
         {/* Menu Button */}
