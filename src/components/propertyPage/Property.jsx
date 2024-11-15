@@ -4,11 +4,11 @@ import NavBarComponent from '../NavBarComponent'
 import Desciption from './Desciption'
 const Property = () => {
   return (
-    <>
+    <div className='bg-primary'>
     <NavBarComponent/>
       <Carousel/>
       <Desciption/>
-    </>
+    </div>
   )
 }
 

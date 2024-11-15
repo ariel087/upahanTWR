@@ -14,16 +14,8 @@ const Desciption = () => {
                 <li>1 Dirty Kitchen </li>
             </ul>
         </div>
-        <div className="w-2/3 h-24 m-5 mt-10  border-2 cursor-pointer border-solid rounded-lg border-gray-300">
-           <div className="w-64 flex flex-col justify-center items-center" >
-            <img
-              src="../src/assets/icon/rentee.svg"
-              className="w-16"
-              alt="Menu Icon"
-              />
+        <div className="w-1/2 h-96 rounded-lg shadow-md border border-gray bg-white">
 
-            <span className="text-xl font-semibold">Rentee's Reviews & Ratings</span>
-              </div>
         </div>
       </div>
       <div className="flex flex-col items-center">right</div>
